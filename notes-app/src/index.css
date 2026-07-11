@@ -13,3 +13,13 @@ html, body, #root {
   height: 100%;
   margin: 0;
 }
+.main-content {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--topbar-height);
+  padding: 0.5rem;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: var(--sidebar-collapsed-width);
+}

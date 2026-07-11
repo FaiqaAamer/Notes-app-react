@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import NoteCard from './NoteCard.jsx'
 
 function NoteList(){
+    const [openMenuId, setOpenMenuId] = useState(null)
     const dummyNotes = [
         {
         id: 1,
         title: "Hello",
         content: "This card has only the dummy note for notes app with React and I am making it",
-        date: "11/7/2026",
+        date: "11/6/2026",
         },
         {
         id: 2,
@@ -18,7 +20,7 @@ function NoteList(){
         id: 3,
         title: "Shopping List",
         content: "Milk, eggs, bread, fruits.",
-        date: "11/9/2026",
+        date: "11/10/2026",
         },
     ];
     const styles = {
@@ -28,7 +30,10 @@ function NoteList(){
         padding: "1rem"
     }
     return(<div style={styles}>
-        {dummyNotes.map((note) => (<NoteCard key={note.id} note={note}/>))}
+        {dummyNotes.map((note) => (<NoteCard key={note.id} note={note}
+                                    isMenuOpen={openMenuId === note.id}
+                                    onToggleMenu={() => setOpenMenuId (prev => (prev === note.id ? null : note.id))}
+                                />))}
     </div>)
 }
 
