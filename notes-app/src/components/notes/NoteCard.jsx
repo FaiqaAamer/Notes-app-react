@@ -1,9 +1,10 @@
 import { MoreVertical } from "lucide-react";
 import React, { useState } from "react"
+import "./NoteCard.css"
 
 function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
     const styles = {
-        height : "250px",
+        minHeight : "250px",
         width : "220px",
         border : "2px solid #7B6A55",
         borderRadius : "5px",
@@ -13,6 +14,8 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
     }
     const h2 = {
         margin : "5px",
+        paddingTop : "5px",
+        paddingBottom : "5px",
         textAlign : "center",
         fontFamily : "Cambria",
         fontSize : "25px"
@@ -71,7 +74,7 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
         fontSize : "14px"
     }
 
-    return(<div style={styles}>
+    return(<div style={styles} className="note-card">
         <h2 style={h2}>{title}</h2>
         <p style={p}>{content}</p>
         <div style={footer}>
