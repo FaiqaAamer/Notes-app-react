@@ -1,0 +1,116 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: #f5f5f5;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+  padding: 1rem 0.5rem;
+}
+
+/* Header: app name + toggle */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+}
+
+.app-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.3rem;
+  flex-shrink: 0;
+}
+
+/* Nav + notebook list items */
+.sidebar nav ul,
+.notebook-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.sidebar nav ul li,
+.notebook-list ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed nav ul li,
+.sidebar.collapsed .notebook-list ul li {
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.sidebar nav ul li:hover,
+.notebook-list ul li:hover {
+  background-color: #e0e0e0;
+}
+
+.icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.notebook-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 1rem;
+}
+
+.notebook-list h4 {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.notebook-list li.active {
+  background-color: #f4e6dd;
+  font-weight: bold;
+}
+
+.new-notebook-btn {
+  flex-shrink: 0;
+  padding: 0.6rem;
+  border: none;
+  background-color: #E7C7A3;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.new-notebook-btn:hover {
+  background-color: #e4bb8c;
+}
