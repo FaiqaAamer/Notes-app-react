@@ -2,7 +2,7 @@ import { MoreVertical } from "lucide-react";
 import React, { useState } from "react"
 import "./NoteCard.css"
 
-function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu, onEdit}){
+function NoteCard({note  : {id, title, content, date}, isMenuOpen, onToggleMenu, onEdit, onPin, onDelete, onArchive}){
     const styles = {
         minHeight : "250px",
         width : "220px",
@@ -95,14 +95,14 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu, onE
         </div>
         <div style={footer}>
             <p style={p2}>{date}</p>
-            <button style={menuBtn} onClick={onToggleMenu}> 
+            <button style={menuBtn} onClick={(e) => { e.stopPropagation(); onToggleMenu()}} > 
                 <MoreVertical size={18} />
             </button>
             {isMenuOpen && (
                 <div style={dropdown}>
-                    <button style={dropdownItem}>Pin</button>
-                    <button style={dropdownItem}>Archive</button>
-                    <button style={dropdownItem}>Delete</button>
+                    <button style={dropdownItem} onClick={(e) => {e.stopPropagation(); onPin(id); onToggleMenu()}}>Pin</button>
+                    <button style={dropdownItem} onClick={(e) => {e.stopPropagation(); onArchive(id); onToggleMenu()}}>Archive</button>
+                    <button style={dropdownItem} onClick={(e) => {e.stopPropagation(); onDelete(id); onToggleMenu()}}>Delete</button>
                 </div>
             )}
         </div>

@@ -16,8 +16,7 @@ import {
 import "./Sidebar.css";
 import Modal from "../common/Modal";
 
-function Sidebar({ isCollapsed, onToggle, activeNotebookId, onSelectNotebook}) {
-  const [notebook, setNotebook] = useState([])
+function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, notebooks, setNotebooks}) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newNotebookName, setNewNotebookName] = useState("")
 
@@ -25,14 +24,14 @@ function Sidebar({ isCollapsed, onToggle, activeNotebookId, onSelectNotebook}) {
 
   const handleAddNotebook = () => {
     if(newNotebookName.trim() === "") return
-    const newId = notebook.length + 1
+    const newId = notebooks.length + 1
     const newNotebook = {
       id : newId,
       name : newNotebookName,
       count : 0,
       icon : <Book size={18}/>
     }
-    setNotebook([...notebook, newNotebook])
+    setNotebooks([...notebooks, newNotebook])
     setNewNotebookName("")
     setIsModalOpen(false)
   }
@@ -50,19 +49,19 @@ function Sidebar({ isCollapsed, onToggle, activeNotebookId, onSelectNotebook}) {
       {/* App Sections */}
       <nav>
         <ul>
-          <li title="All Notes">
+          <li title="All Notes" className={activeSection === "all" ? "active" : ""} onClick={() => setActiveSection("all")}>
             {isCollapsed && <span className="icon"><FileText size={18} /></span>}
             {!isCollapsed && <span>All Notes</span>}
           </li>
-          <li title="Pinned">
+          <li title="Pinned" className={activeSection === "pinned" ? "active" : ""} onClick={() => setActiveSection("pinned")}>
             {isCollapsed && <span className="icon"><Pin size={18} /></span>}
             {!isCollapsed && <span>Pinned</span>}
           </li>
-          <li title="Archive">
+          <li title="Archive" className={activeSection === "archive" ? "active" : ""} onClick={() => setActiveSection("archive")}>
             {isCollapsed && <span className="icon"><Archive size={18} /></span>}
             {!isCollapsed && <span>Archive</span>}
           </li>
-          <li title="Trash">
+          <li title="Trash" className={activeSection === "trash" ? "active" : ""} onClick={() => setActiveSection("trash")}>
             {isCollapsed && <span className="icon"><Trash2 size={18} /></span>}
             {!isCollapsed && <span>Trash</span>}
           </li>
@@ -73,11 +72,11 @@ function Sidebar({ isCollapsed, onToggle, activeNotebookId, onSelectNotebook}) {
       <div className="notebook-list">
         {!isCollapsed && <h4>Notebooks</h4>}
         <ul>
-          {notebook.length === 0 && !isCollapsed && (
+          {notebooks.length === 0 && !isCollapsed && (
             <li className="empty">No notebooks yet</li>
           )}
-          {notebook.map((nb) => (
-            <li key={nb.id} className={nb.id === activeNotebookId ? "active" : ""} title={nb.name} onClick={() => onSelectNotebook(nb.id)}>
+          {notebooks.map((nb) => (
+            <li key={nb.id} className={activeSection === nb.id? "active" : ""} title={nb.name} onClick={() => setActiveSection(nb.id)}>
               {isCollapsed ? <span className="icon">{nb.icon}</span> : <span>&nbsp;&nbsp;{nb.name}&nbsp; - &nbsp;{nb.count}</span>}
             </li>
           ))}

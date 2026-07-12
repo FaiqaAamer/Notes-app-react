@@ -3,16 +3,21 @@ import Sidebar from "./components/layout/Sidebar";
 import Topbar from "./components/layout/Topbar";
 import NoteList from "./components/notes/NoteList";
 import NoteEditor from './components/notes/NoteEditor'
+import './components/common/Modal.css'
 
 function App() {
 
   // return(<NoteEditor />)
 
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [activeNotebookId, setActiveNotebookId] = useState(null);
+  const [activeSection, setActiveSection] = useState("all"); 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [notes, setNotes] = useState([]);
   const [editingNote, setEditingNote] = useState(null);
+  const [notebooks, setNotebooks] = useState([]);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState(null);
+
 
   useEffect(() => {
     function handleResize() {
@@ -24,6 +29,18 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    setNotebooks(prev =>
+      prev.map(nb => ({
+        ...nb,
+        count: notes.filter(
+          n => n.notebookId === nb.id && !n.trashed && !n.archived
+        ).length
+      }))
+    );
+  }, [notes]);
+
+
   const handleAddNote = (note) => {
         if (note.id) {
         setNotes((prev) =>
@@ -34,15 +51,48 @@ function App() {
         ...note,
         id: notes.length + 1,
         date: new Date().toLocaleDateString(),
+        notebookId: typeof activeSection === "number" ? activeSection : null
       };
       setNotes([...notes, newNote]);
     }
   };
 
+  const handlePin = (id) => {
+    setNotes(prev => 
+      prev.map(n => n.id === id ? {...n, pinned : !n.pinned} : n)
+    )
+  }
+  const handleArchive = (id) => {
+    setNotes(prev => 
+      prev.map(n => n.id === id ? {...n, archived : !n.archived} : n)
+    )
+  }
+  const handleDelete = (id) => {
+    const target = notes.find(n => n.id === id)
+    if(target?.trashed){
+      setNoteToDelete(id)
+      setIsConfirmOpen(true)
+    }else{
+      setNotes(prev => 
+        prev.map(n => n.id === id ? {...n, trashed : !n.trashed} : n)
+      )
+    }
+  }
+  const confirmPermanentDelete = () => {
+    setNotes(prev => prev.filter(n => n.id !== noteToDelete))
+    setIsConfirmOpen(false)
+    setNoteToDelete(null)
+  }
+  const confirmRestore = () => {
+    setNotes(prev => prev.map(n => n.id === noteToDelete ? {...n, trashed : false} : n))
+    setIsConfirmOpen(false)
+    setNoteToDelete(null)
+  }
+
   return (
     
     <>
-      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeNotebookId={activeNotebookId}  onSelectNotebook={setActiveNotebookId}/>
+      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks}/>
       <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)}/>
       <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
         {isEditorOpen || editingNote ? (
@@ -54,16 +104,98 @@ function App() {
               setEditingNote(null);
             }}
           />
+        ) : activeSection === "all" ? (
+          <>
+            <h2 className="notebook-title">All Notes</h2>
+            <hr />
+            <NoteList
+              notes={notes.filter(n => !n.archived && !n.trashed)}
+              onEditNote={(note) => {
+                setEditingNote(note);
+                setIsEditorOpen(true);
+              }}
+              onPin={handlePin}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </>
+        ) : activeSection === "pinned" ? (
+          <>
+            <h2 className="notebook-title">Pinned Notes</h2>
+            <hr />
+            <NoteList
+              notes={notes.filter(n => n.pinned && !n.trashed)}   
+              onEditNote={(note) => {
+                setEditingNote(note);
+                setIsEditorOpen(true);
+              }}
+              onPin={handlePin}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </>
+        ) : activeSection === "archive" ? (
+          <>
+            <h2 className="notebook-title">Archive</h2>
+            <hr />
+            <NoteList
+              notes={notes.filter(n => n.archived && !n.trashed)}
+              onEditNote={(note) => {
+                setEditingNote(note);
+                setIsEditorOpen(true);
+              }}
+              onPin={handlePin}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </>
+        ) : activeSection === "trash" ? (
+          <>
+            <h2 className="notebook-title">Trash</h2>
+            <hr />
+            <NoteList
+              notes={notes.filter(n => n.trashed)}  
+              onEditNote={(note) => {
+                setEditingNote(note);
+                setIsEditorOpen(true);
+              }}
+              onPin={handlePin}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </>
         ) : (
-          <NoteList
-            notes={notes}
-            onEditNote={(note) => {
-              setEditingNote(note);      
-              setIsEditorOpen(true);     
-            }}
-          />
+          <>
+            <h2 className="notebook-title">
+              Notebook - {notebooks.find(nb => nb.id === activeSection)?.name}
+            </h2>
+            <hr />
+            <NoteList
+              notes={notes.filter(n => n.notebookId === activeSection && !n.trashed)}
+              onEditNote={(note) => {
+                setEditingNote(note);
+                setIsEditorOpen(true);
+              }}
+              onPin={handlePin}
+              onArchive={handleArchive}
+              onDelete={handleDelete}
+            />
+          </>
         )}
       </main>
+      {isConfirmOpen && (
+        <div className="modal-overlay">
+            <div className="modal-box">
+                <h3>Delete Note Permanently?</h3>
+                <p>This note is already in Trash. Do you want to restore it or delete it forever?</p>
+                <div className="modal-actions">
+                    <button className="btn restore" onClick={confirmRestore}>Restore</button>
+                    <button className="btn delete" onClick={confirmPermanentDelete}>Delete Permanently</button>
+                    <button className="btn cancel" onClick={() => setIsConfirmOpen(false)}>Cancel</button>
+                </div>
+            </div>
+        </div>
+      )}
 
     </>
   );
