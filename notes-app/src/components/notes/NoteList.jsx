@@ -68,7 +68,7 @@ function NoteList(){
         {
         id: 11,
         title: "Birthday Gift Ideas",
-        content: "Personalized mug, scented candles, or a photo frame.",
+        content: "Personalized mug, scented candles, or a photo frame. Person mug, scented candles, or a photo frame. Personalized mug, scented candles, or a photo frame.Personalized mug, scented candles, or a photo frame.",
         date: "11/17/2026",
         },
         {

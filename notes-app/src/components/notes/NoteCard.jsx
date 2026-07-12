@@ -14,24 +14,24 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
     }
     const h2 = {
         margin : "5px",
-        paddingTop : "5px",
-        paddingBottom : "5px",
+        padding : "5px 0",
         textAlign : "center",
         fontFamily : "Cambria",
-        fontSize : "25px"
+        fontSize : "20px"
     }
     const p = {
-        marginLeft : "15px",
-        marginRight : "15px",
-        margin : "10px",
-        paddingLeft : "20px",
-        paddingRight : "20px",
-        paddingTop : "10px",
-        paddingBottom : "10px",
+        margin : "10px 13px",
+        padding: "10px 20px 10px 20px",
         backgroundColor : "#f6eae2",
         border : "2px solid #8b592b3a",
         borderRadius : "5px",
-        height : "150px"
+        height : "150px",
+        overflow : "hidden",
+        display : "-webkit-box",
+        // WebkitLineClamp : "2",
+        WebkitBoxOrient : "vertical",
+        textOverflow : "ellipsis",
+        lineHeight : "1.4rem"
     }
     const footer = {
         display : "flex",
