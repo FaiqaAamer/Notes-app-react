@@ -16,12 +16,12 @@ import {
 import "./Sidebar.css";
 import Modal from "../common/Modal";
 
-function Sidebar({ isCollapsed, onToggle }) {
+function Sidebar({ isCollapsed, onToggle, activeNotebookId, onSelectNotebook}) {
   const [notebook, setNotebook] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newNotebookName, setNewNotebookName] = useState("")
 
-  const activeNotebook = null;
+  // const activeNotebook = null;
 
   const handleAddNotebook = () => {
     if(newNotebookName.trim() === "") return
@@ -77,7 +77,7 @@ function Sidebar({ isCollapsed, onToggle }) {
             <li className="empty">No notebooks yet</li>
           )}
           {notebook.map((nb) => (
-            <li key={nb.id} className={nb.id === activeNotebook ? "active" : ""} title={nb.name}>
+            <li key={nb.id} className={nb.id === activeNotebookId ? "active" : ""} title={nb.name} onClick={() => onSelectNotebook(nb.id)}>
               {isCollapsed ? <span className="icon">{nb.icon}</span> : <span>&nbsp;&nbsp;{nb.name}&nbsp; - &nbsp;{nb.count}</span>}
             </li>
           ))}

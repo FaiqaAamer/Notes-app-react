@@ -18,3 +18,28 @@
         left: var(--sidebar-collapsed-width) !important;
     }
 }
+
+.note-preview-content {
+    font-size: 0.85rem !important;
+    line-height: 1.4rem !important;
+}
+
+.note-preview-content * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    /* removed background-color reset — highlight stays */
+}
+
+.note-preview-content ol,
+.note-preview-content ul {
+    padding-left: 1.2rem !important;
+}
+
+/* Fix the bleeding specifically — highlighted spans shouldn't extend beyond text */
+.note-preview-content span {
+    display: inline;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}

@@ -1,11 +1,16 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import ReactQuill from "react-quill-new"
 import "react-quill-new/dist/quill.snow.css"
 import "./NoteEditor.css"
 
-function NoteEditor(){
+function NoteEditor({note, onSave, onClose}){
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
+
+    useEffect(() => {
+        setTitle(note ? note.title : "")
+        setContent(note ? note.content : "")
+    }, [note])
 
     function HandleTitle(event){
         setTitle(event.target.value)
@@ -20,9 +25,16 @@ function NoteEditor(){
             alert("Please enter title and content")
             return
         }
-        console.log("New note: ", title, content)
+        const updatedNote = {
+            ...note,
+            title,
+            content,
+            date: new Date().toLocaleDateString(),
+        };
+        onSave(updatedNote)
         setTitle("")
         setContent("")
+        onClose()
     }
 
     const modules = {

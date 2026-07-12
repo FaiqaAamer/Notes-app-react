@@ -2,7 +2,7 @@ import { MoreVertical } from "lucide-react";
 import React, { useState } from "react"
 import "./NoteCard.css"
 
-function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
+function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu, onEdit}){
     const styles = {
         minHeight : "250px",
         width : "220px",
@@ -19,18 +19,21 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
         fontFamily : "Cambria",
         fontSize : "20px"
     }
-    const p = {
+    const div = {
         margin : "10px 13px",
-        padding: "10px 20px 10px 20px",
-        backgroundColor : "#f6eae2",
+        padding: "8px 16px",
+        backgroundColor : "#fff",
         border : "2px solid #8b592b3a",
         borderRadius : "5px",
         height : "150px",
         overflow : "hidden",
         display : "-webkit-box",
+        WebkitLineClamp : "5",
         WebkitBoxOrient : "vertical",
         textOverflow : "ellipsis",
-        lineHeight : "1.4rem"
+        whiteSpace: "pre-line",      
+        wordWrap: "break-word",   
+        boxSizing : "border-box",
     }
     const footer = {
         display : "flex",
@@ -73,9 +76,23 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
         fontSize : "14px"
     }
 
-    return(<div style={styles} className="note-card">
+    function sanitizePreviewHtml(html) {
+        const temp = document.createElement("div");
+        temp.innerHTML = html;
+        temp.querySelectorAll("table").forEach(table => table.remove());
+        temp.querySelectorAll("img").forEach(img => img.remove());
+        return temp.innerHTML;
+
+    }
+
+
+    return(<div style={styles} className="note-card" onClick={onEdit}>
         <h2 style={h2}>{title}</h2>
-        <p style={p}>{content}</p>
+        <div
+            style={div}
+            className="note-preview-content"
+            dangerouslySetInnerHTML={{ __html: sanitizePreviewHtml(content) }}>
+        </div>
         <div style={footer}>
             <p style={p2}>{date}</p>
             <button style={menuBtn} onClick={onToggleMenu}> 

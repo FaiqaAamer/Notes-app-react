@@ -95,9 +95,11 @@
   color: #333;
 }
 
-.notebook-list li.active {
-  background-color: #f4e6dd;
-  font-weight: bold;
+.sidebar .notebook-list ul li.active {
+  background-color: #ebdbc9;   /* bright yellow highlight */
+  color: #000;                 /* text stays readable */
+  font-weight: bold;           /* optional emphasis */
+  border-radius: 4px;          /* smooth corners */
 }
 
 .new-notebook-btn {
