@@ -1,8 +1,8 @@
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Pin } from "lucide-react";
 import React, { useState } from "react"
 import "./NoteCard.css"
 
-function NoteCard({note  : {id, title, content, date}, isMenuOpen, onToggleMenu, onEdit, onPin, onDelete, onArchive}){
+function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onToggleMenu, onEdit, onPin, onDelete, onArchive}){
     const styles = {
         minHeight : "250px",
         width : "220px",
@@ -87,7 +87,7 @@ function NoteCard({note  : {id, title, content, date}, isMenuOpen, onToggleMenu,
 
 
     return(<div style={styles} className="note-card" onClick={onEdit}>
-        <h2 style={h2}>{title}</h2>
+        <h2 style={h2}>{title} {pinned && (<Pin size={16} color="#7B6A55" style={{ marginLeft: "6px", verticalAlign: "middle" }} />)}</h2>
         <div
             style={div}
             className="note-preview-content"

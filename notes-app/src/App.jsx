@@ -7,8 +7,6 @@ import './components/common/Modal.css'
 
 function App() {
 
-  // return(<NoteEditor />)
-
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState("all"); 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
@@ -17,6 +15,7 @@ function App() {
   const [notebooks, setNotebooks] = useState([]);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
 
   useEffect(() => {
@@ -40,6 +39,9 @@ function App() {
     );
   }, [notes]);
 
+  useEffect(() => {
+    setSearchQuery("");
+  }, [activeSection]);
 
   const handleAddNote = (note) => {
         if (note.id) {
@@ -88,12 +90,21 @@ function App() {
     setIsConfirmOpen(false)
     setNoteToDelete(null)
   }
+  const filteredNotes = notes.filter(note => {
+    const matchesSearch = note.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+      if (activeSection === "all") return !note.archived && !note.trashed && matchesSearch;
+      if (activeSection === "pinned") return note.pinned && !note.archived && !note.trashed && matchesSearch;
+      if (activeSection === "archive") return note.archived && !note.trashed && matchesSearch;
+      if (activeSection === "trash") return note.trashed && matchesSearch;
+      return note.notebookId === activeSection && !note.archived && !note.trashed && matchesSearch;
+  });
 
   return (
     
     <>
       <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks}/>
-      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)}/>
+      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery}/>
       <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
         {isEditorOpen || editingNote ? (
           <NoteEditor
@@ -108,8 +119,11 @@ function App() {
           <>
             <h2 className="notebook-title">All Notes</h2>
             <hr />
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
             <NoteList
-              notes={notes.filter(n => !n.archived && !n.trashed)}
+              notes={filteredNotes} 
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -117,14 +131,17 @@ function App() {
               onPin={handlePin}
               onArchive={handleArchive}
               onDelete={handleDelete}
-            />
+            />)}
           </>
         ) : activeSection === "pinned" ? (
           <>
             <h2 className="notebook-title">Pinned Notes</h2>
             <hr />
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
             <NoteList
-              notes={notes.filter(n => n.pinned && !n.trashed)}   
+              notes={filteredNotes} 
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -132,14 +149,17 @@ function App() {
               onPin={handlePin}
               onArchive={handleArchive}
               onDelete={handleDelete}
-            />
+            />)}
           </>
         ) : activeSection === "archive" ? (
           <>
             <h2 className="notebook-title">Archive</h2>
             <hr />
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
             <NoteList
-              notes={notes.filter(n => n.archived && !n.trashed)}
+              notes={filteredNotes} 
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -147,14 +167,17 @@ function App() {
               onPin={handlePin}
               onArchive={handleArchive}
               onDelete={handleDelete}
-            />
+            />)}
           </>
         ) : activeSection === "trash" ? (
           <>
             <h2 className="notebook-title">Trash</h2>
             <hr />
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
             <NoteList
-              notes={notes.filter(n => n.trashed)}  
+              notes={filteredNotes} 
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -162,7 +185,7 @@ function App() {
               onPin={handlePin}
               onArchive={handleArchive}
               onDelete={handleDelete}
-            />
+            />)}
           </>
         ) : (
           <>
@@ -170,8 +193,11 @@ function App() {
               Notebook - {notebooks.find(nb => nb.id === activeSection)?.name}
             </h2>
             <hr />
+            {filteredNotes.length === 0 ? (
+              <p>No notes found.</p>
+            ) : (
             <NoteList
-              notes={notes.filter(n => n.notebookId === activeSection && !n.trashed)}
+              notes={filteredNotes} 
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -179,7 +205,7 @@ function App() {
               onPin={handlePin}
               onArchive={handleArchive}
               onDelete={handleDelete}
-            />
+            />)}
           </>
         )}
       </main>
