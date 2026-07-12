@@ -63,7 +63,7 @@ src/
 
 1. Clone the repository:
    ```bash
-   git clone <your-repo-url>
+   git clone <https://github.com/FaiqaAamer/Notes-app-react>
    cd notes-app
 2. Install dependencies:
    ```bash
@@ -71,3 +71,14 @@ src/
 3. Start development server: 
    ```bash
    npm run dev
+
+---
+
+## Author
+**Faiqa Aamer** 
+
+---
+
+## Connect with me
+- 🌐 GitHub: https://github.com/FaiqaAamer  
+- 💼 LinkedIn: https://www.linkedin.com/in/faiqa-aamer-a84a083ab/
