@@ -28,4 +28,46 @@ Supports pinning, archiving, trashing, restoring, and permanent deletion of note
 
 ---
 
+## 📂 Project Structure
 
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── Sidebar.jsx
+│   │   └── Topbar.jsx
+│   ├── notes/
+│   │   ├── NoteList.jsx
+│   │   ├── NoteCard.jsx
+│   │   └── NoteEditor.jsx
+│   └── Modal.css
+├── App.jsx
+└── index.js
+```
+
+
+---
+
+## 🎨 Styling
+
+- **NoteCard.css** → styles for individual note cards (title, preview, dropdown menu).
+- **Modal.css** → styles for the confirmation modal:
+  - Centered overlay with blur effect
+  - Smooth fade-in animation
+  - Buttons for Restore, Delete Permanently, Cancel
+- Sidebar and Topbar use simple flexbox layouts for responsiveness.
+
+---
+
+## ▶️ Running the App
+
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   cd notes-app
+2. Install dependencies:
+   ```bash
+   npm install
+3. Start development server: 
+   ```bash
+   npm run dev
