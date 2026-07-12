@@ -28,7 +28,6 @@ function NoteCard({note  : {title, content, date}, isMenuOpen, onToggleMenu}){
         height : "150px",
         overflow : "hidden",
         display : "-webkit-box",
-        // WebkitLineClamp : "2",
         WebkitBoxOrient : "vertical",
         textOverflow : "ellipsis",
         lineHeight : "1.4rem"
