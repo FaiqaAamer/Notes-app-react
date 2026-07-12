@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   NotebookPen,
+  Book,
   FileText,
   Pin,
   Archive,
@@ -13,15 +14,28 @@ import {
   Plus,
 } from "lucide-react";
 import "./Sidebar.css";
+import Modal from "../common/Modal";
 
 function Sidebar({ isCollapsed, onToggle }) {
-  const dummyNotebooks = [
-    { id: 1, name: "Work", count: 5, icon: <Briefcase size={18} />},
-    { id: 2, name: "Personal", count: 3, icon: <Home size={18} /> },
-    { id: 3, name: "Ideas", count: 7, icon: <Lightbulb size={18} /> },
-  ];
+  const [notebook, setNotebook] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [newNotebookName, setNewNotebookName] = useState("")
 
-  const activeNotebook = 1;
+  const activeNotebook = null;
+
+  const handleAddNotebook = () => {
+    if(newNotebookName.trim() === "") return
+    const newId = notebook.length + 1
+    const newNotebook = {
+      id : newId,
+      name : newNotebookName,
+      count : 0,
+      icon : <Book size={18}/>
+    }
+    setNotebook([...notebook, newNotebook])
+    setNewNotebookName("")
+    setIsModalOpen(false)
+  }
 
   return (
     <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
@@ -59,23 +73,29 @@ function Sidebar({ isCollapsed, onToggle }) {
       <div className="notebook-list">
         {!isCollapsed && <h4>Notebooks</h4>}
         <ul>
-          {dummyNotebooks.map((nb) => (
-            <li
-              key={nb.id}
-              title={nb.name}
-              className={nb.id === activeNotebook ? "active" : ""}
-            >
-              {isCollapsed && <span className="icon">{nb.icon}</span>}
-              {!isCollapsed && <span>{nb.name}&nbsp;-&nbsp;{nb.count}</span>}
+          {notebook.length === 0 && !isCollapsed && (
+            <li className="empty">No notebooks yet</li>
+          )}
+          {notebook.map((nb) => (
+            <li key={nb.id} className={nb.id === activeNotebook ? "active" : ""} title={nb.name}>
+              {isCollapsed ? <span className="icon">{nb.icon}</span> : <span>&nbsp;&nbsp;{nb.name}&nbsp; - &nbsp;{nb.count}</span>}
             </li>
           ))}
         </ul>
       </div>
 
       {/* New Notebook Button */}
-      <button className="new-notebook-btn" title="New Notebook">
+      <button className="new-notebook-btn" onClick={() => setIsModalOpen(true)} title="New Notebook">
         {isCollapsed ? "+" : "+ New Notebook"}
       </button>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h3>Add New Notebook</h3>
+        <input type="text" placeholder="Notebook Title" value={newNotebookName} onChange={(e) => setNewNotebookName(e.target.value)}/>
+        <div className="modal-actions">
+          <button onClick={handleAddNotebook}>Add</button>
+          <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+        </div>
+      </Modal>
     </aside>
   );
 }
