@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/layout/Sidebar";
 import Topbar from "./components/layout/Topbar";
 import NoteList from "./components/notes/NoteList";
 import NoteEditor from './components/notes/NoteEditor'
+import StickyNoteBoard from './components/stickyNotes/StickyNoteBoard.jsx'
 import './components/common/Modal.css'
 
 function App() {
@@ -17,7 +18,11 @@ function App() {
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [theme, setTheme] = useState("light");
+  const [stickyNotes, setStickyNotes] = useState([]);
+  const noteColors = ["#F4A99E", "#A8DDBE", "#A8D4EA", "#FBDCA0", "#b18fc2"];
+  const lastColorRef = useRef(null);
 
+  //All useEffects in the App.jsx
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth <= 480) {
@@ -27,7 +32,6 @@ function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   useEffect(() => {
     setNotebooks(prev =>
       prev.map(nb => ({
@@ -38,11 +42,11 @@ function App() {
       }))
     );
   }, [notes]);
-
   useEffect(() => {
     setSearchQuery("");
   }, [activeSection]);
 
+  //All arrow functions in the App.jsx
   const handleAddNote = (note) => {
         if (note.id) {
         setNotes((prev) =>
@@ -58,7 +62,6 @@ function App() {
       setNotes([...notes, newNote]);
     }
   };
-
   const handlePin = (id) => {
     setNotes(prev => 
       prev.map(n => n.id === id ? {...n, pinned : !n.pinned} : n)
@@ -102,7 +105,33 @@ function App() {
   const toggleTheme = () => {
     setTheme(prev => (prev === "light" ? "dark" : "light"));
   };
+  const addStickyNote = () => {
+    let color;
+    do {
+        color = noteColors[Math.floor(Math.random() * noteColors.length)];
+    } while (color === lastColorRef.current && noteColors.length > 1);
 
+    lastColorRef.current = color;
+    const newNote = {
+      id : Date.now(),
+      text : "",
+      color : color,
+      x : 100,
+      y : 100
+    }
+    setStickyNotes(prev => [...prev, newNote])
+  }
+  const updateStickyNotePosition = (id, x, y) => {
+    setStickyNotes(prev => prev.map(note => note.id === id ? {...note, x, y} : note))
+  }
+  const updateStickyNoteText = (id, text) => {
+    setStickyNotes(prev => prev.map(note => note.id === id ? {...note, text} : note))
+  }
+  const deleteStickyNote = (id) => {
+    setStickyNotes(prev => prev.filter(note => note.id !== id))
+  }
+
+  //Main return part of the App.jsx
   return (
     
     <>
@@ -195,6 +224,18 @@ function App() {
               onArchive={handleArchive}
               onDelete={handleDelete}
             />)}
+          </>
+        ) : activeSection === "sticky" ? (
+          <>
+              <h2 className="notebook-title">Sticky Notes</h2>
+              <hr />
+              <button className="save-btn" onClick={addStickyNote}>+ New Sticky Note</button>
+              <StickyNoteBoard
+                  stickyNote={stickyNotes}
+                  onUpdatePosition={updateStickyNotePosition}
+                  onChange={updateStickyNoteText}
+                  onDelete={deleteStickyNote}
+              />
           </>
         ) : (
           <>

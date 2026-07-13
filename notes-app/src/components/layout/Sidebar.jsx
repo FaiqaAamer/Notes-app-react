@@ -9,6 +9,7 @@ import {
   Briefcase,
   Home,
   Lightbulb,
+  StickyNote as StickyNoteIcon,
   ArrowLeft,
   ArrowRight,
   Plus,
@@ -64,6 +65,10 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
           <li title="Trash" className={activeSection === "trash" ? "active" : ""} onClick={() => setActiveSection("trash")}>
             {isCollapsed && <span className="icon"><Trash2 size={18} /></span>}
             {!isCollapsed && <span>Trash</span>}
+          </li>
+          <li title="Sticky Notes" onClick={() => setActiveSection("sticky")} className={activeSection === "sticky" ? "active" : ""}>
+            {isCollapsed && <span className="icon"><StickyNoteIcon size={18} /></span>}
+            {!isCollapsed && <span>Sticky Notes</span>}
           </li>
         </ul>
       </nav>

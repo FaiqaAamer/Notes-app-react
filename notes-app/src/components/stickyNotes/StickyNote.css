@@ -1,0 +1,44 @@
+.sticky-note-board {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+}
+
+.sticky-note {
+  position: absolute;
+  width: 200px;
+  min-height: 180px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: move;
+}
+
+.sticky-note textarea {
+  width: 100%;
+  flex: 1;
+  margin-top: 25px;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: "Comic Sans MS", cursive;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #2b2014;
+  outline: none;
+}
+
+.sticky-note textarea::placeholder {
+  color: rgba(43, 32, 20, 0.45);
+}
+
+.sticky-note button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2b2014;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
