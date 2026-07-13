@@ -166,7 +166,6 @@ The application allows users to switch themes instantly while maintaining a cons
 # 🧠 Future Enhancements
 
 -  Add labels and categories.
--  Improve mobile drag-and-drop.
 -  Firebase/Supabase cloud synchronization.
 -  User authentication.
 -  Export notes as PDF or Markdown.
@@ -178,3 +177,20 @@ The application allows users to switch themes instantly while maintaining a cons
 ## ⭐ Support
 
 If you found this project helpful, consider giving it a ⭐ on GitHub!
+
+--- 
+
+## License
+
+Open source under the [MIT License](LICENSE).
+
+---
+
+## Author
+**Faiqa Aamer** 
+
+---
+
+## Connect with me
+- 🌐 GitHub: https://github.com/FaiqaAamer  
+- 💼 LinkedIn: https://www.linkedin.com/in/faiqa-aamer-a84a083ab/
