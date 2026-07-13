@@ -5,12 +5,12 @@ function Modal({ isOpen, onClose, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        {children}
-        <button className="modal-close" onClick={onClose}>×</button>
-      </div>
-    </div>
+    <div className="notebook-modal-overlay" onClick={onClose}>
+            <div className="notebook-modal-content" onClick={(e) => e.stopPropagation()}>
+                <button className="notebook-modal-close" onClick={onClose}>×</button>
+                {children}
+            </div>
+        </div>
   );
 }
 

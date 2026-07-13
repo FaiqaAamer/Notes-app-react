@@ -2,7 +2,7 @@ import { useState } from 'react';
 import NoteCard from './NoteCard.jsx'
 import "./NoteCard.css"
 
-function NoteList({notes, onEditNote, onPin, onArchive, onDelete}){
+function NoteList({notes, onEditNote, onPin, onArchive, onDelete, theme}){
     const [openMenuId, setOpenMenuId] = useState(null)
     
     const handleAddNote = (title, content, notebookId = null) => {
@@ -28,6 +28,7 @@ function NoteList({notes, onEditNote, onPin, onArchive, onDelete}){
                                     isMenuOpen={openMenuId === note.id}
                                     onToggleMenu={() => setOpenMenuId (prev => (prev === note.id ? null : note.id))}
                                     onEdit={() => onEditNote(note)}
+                                    theme={theme}
                                     onPin={onPin}
                                     onArchive={onArchive}
                                     onDelete={onDelete}

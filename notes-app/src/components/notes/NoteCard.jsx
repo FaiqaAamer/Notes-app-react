@@ -2,7 +2,7 @@ import { MoreVertical, Pin } from "lucide-react";
 import React, { useState } from "react"
 import "./NoteCard.css"
 
-function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onToggleMenu, onEdit, onPin, onDelete, onArchive}){
+function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onToggleMenu, onEdit, onPin, onDelete, onArchive, theme}){
     const styles = {
         minHeight : "250px",
         width : "220px",
@@ -10,19 +10,20 @@ function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onTog
         borderRadius : "5px",
         margin : "5px",
         padding : "5px",
-        backgroundColor : "#fdf9f5"
+        backgroundColor: theme === "dark" ? "#3a2d20" : "#fdf9f5",
     }
     const h2 = {
         margin : "5px",
         padding : "5px 0",
         textAlign : "center",
         fontFamily : "Cambria",
-        fontSize : "20px"
+        fontSize : "20px",
+        color: theme === "dark" ? "#fdf9f5" : "#2b2014",
     }
     const div = {
         margin : "10px 13px",
         padding: "8px 16px",
-        backgroundColor : "#fff",
+        backgroundColor: theme === "dark" ? "#4a3a2a" : "#fff",
         border : "2px solid #8b592b3a",
         borderRadius : "5px",
         height : "150px",
@@ -45,21 +46,23 @@ function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onTog
     }
     const p2 = {
         fontWeight : "bold",
-        paddingBottom : "25px"
+        paddingBottom : "25px",
+        color: theme === "dark" ? "#fdf9f5" : "#000"
     }
     const menuBtn = {
         background : "none",
         border : "none",
         cursor : "pointer",
         paddingBottom : "25px",
-        color : "#7B6A55"
+        color : "#7B6A55",
+        color: theme === "dark" ? "#c2a27a" : "#7B6A55"
     }
     const dropdown = {
         position : "absolute",
         right : "10px",
         top : "35px",
-        backgroundColor : "#fff",
-        border : "1px solid #ccc",
+        backgroundColor: theme === "dark" ? "#3a2d20" : "#fff",
+        border: `1px solid ${theme === "dark" ? "#c2a27a" : "#ccc"}`,
         borderRadius : "5px",
         boxShadow : "0 2px 6px rgba(0,0,0,0.15)",
         display : "flex",
@@ -73,7 +76,8 @@ function NoteCard({note  : {id, title, content, date, pinned}, isMenuOpen, onTog
         border : "none",
         textAlign : "left",
         cursor : "pointer",
-        fontSize : "14px"
+        fontSize : "14px",
+        color: theme === "dark" ? "#fdf9f5" : "#000"
     }
 
     function sanitizePreviewHtml(html) {

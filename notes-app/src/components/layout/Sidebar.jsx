@@ -88,12 +88,12 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
         {isCollapsed ? "+" : "+ New Notebook"}
       </button>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h3>Add New Notebook</h3>
-        <input type="text" placeholder="Notebook Title" value={newNotebookName} onChange={(e) => setNewNotebookName(e.target.value)}/>
-        <div className="modal-actions">
-          <button onClick={handleAddNotebook}>Add</button>
-          <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-        </div>
+          <h3>Add New Notebook</h3>
+          <input type="text" placeholder="Notebook Title" value={newNotebookName} onChange={(e) => setNewNotebookName(e.target.value)}/>
+          <div className="notebook-modal-actions">
+            <button onClick={handleAddNotebook}>Add</button>
+            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+          </div>
       </Modal>
     </aside>
   );

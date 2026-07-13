@@ -16,7 +16,7 @@ function App() {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     function handleResize() {
@@ -99,17 +99,22 @@ function App() {
       if (activeSection === "trash") return note.trashed && matchesSearch;
       return note.notebookId === activeSection && !note.archived && !note.trashed && matchesSearch;
   });
+  const toggleTheme = () => {
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
+  };
 
   return (
     
     <>
-      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks}/>
-      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery}/>
+    <div className={`app ${theme}`}>
+      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks} theme={theme}/>
+      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery} onToggleTheme={toggleTheme} theme={theme}/>
       <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
         {isEditorOpen || editingNote ? (
           <NoteEditor
             note={editingNote}
             onSave={handleAddNote}
+            theme={theme}
             onClose={() => {
               setIsEditorOpen(false);
               setEditingNote(null);
@@ -124,6 +129,7 @@ function App() {
             ) : (
             <NoteList
               notes={filteredNotes} 
+              theme={theme}
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -142,6 +148,7 @@ function App() {
             ) : (
             <NoteList
               notes={filteredNotes} 
+              theme={theme}
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -160,6 +167,7 @@ function App() {
             ) : (
             <NoteList
               notes={filteredNotes} 
+              theme={theme}
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -178,6 +186,7 @@ function App() {
             ) : (
             <NoteList
               notes={filteredNotes} 
+              theme={theme}
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -198,6 +207,7 @@ function App() {
             ) : (
             <NoteList
               notes={filteredNotes} 
+              theme={theme}
               onEditNote={(note) => {
                 setEditingNote(note);
                 setIsEditorOpen(true);
@@ -210,11 +220,11 @@ function App() {
         )}
       </main>
       {isConfirmOpen && (
-        <div className="modal-overlay">
-            <div className="modal-box">
+        <div className="confirm-modal-overlay">
+            <div className="confirm-modal-box">
                 <h3>Delete Note Permanently?</h3>
                 <p>This note is already in Trash. Do you want to restore it or delete it forever?</p>
-                <div className="modal-actions">
+                <div className="confirm-modal-actions">
                     <button className="btn restore" onClick={confirmRestore}>Restore</button>
                     <button className="btn delete" onClick={confirmPermanentDelete}>Delete Permanently</button>
                     <button className="btn cancel" onClick={() => setIsConfirmOpen(false)}>Cancel</button>
@@ -222,7 +232,7 @@ function App() {
             </div>
         </div>
       )}
-
+    </div>
     </>
   );
 }

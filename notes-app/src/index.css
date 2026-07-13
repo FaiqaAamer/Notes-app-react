@@ -24,3 +24,160 @@ html, body, #root {
   margin-left: var(--sidebar-collapsed-width);
 }
 
+.app {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.app.light {
+  background-color: #fdf9f5;
+  color: #2b2014;
+}
+
+.app.dark {
+  background-color: #2b2014;
+  color: #fdf9f5;
+}
+
+.app.dark .note-card {
+  background-color: #3a2d20;
+  border-color: #c2a27a;
+}
+
+.app.dark .note-card h2 {
+  color: #fdf9f5;
+}
+
+.app.dark .note-card .note-preview-content {
+  background-color: #4a3a2a;
+  color: #fdf9f5;
+  border-color: #c2a27a;
+}
+
+.app.dark .sidebar {
+  background-color: #2b2014;
+  color: #fdf9f5;
+}
+
+.app.dark .sidebar button {
+  background-color: #3a2d20;
+  color: #fdf9f5;
+  border-color: #c2a27a;
+}
+
+.app.dark .sidebar h2,
+.app.dark .sidebar h4,
+.app.dark .sidebar p {
+  color: #fdf9f5;
+}
+
+.app.dark {
+  background-color: #2b2014;
+  min-height: 100vh;
+}
+
+.main-content {
+  min-height: calc(100vh - var(--topbar-height));
+}
+
+.app.dark .topbar {
+  background-color: #3a2d20;
+  color: #fdf9f5;
+}
+
+.app.dark input[type="text"] {
+  background-color: #4a3a2a;
+  color: #fdf9f5;
+  border: 1px solid #c2a27a;
+}
+
+.app.dark button {
+  background-color: #7b6a55;
+  color: #fff;
+  border: none;
+}
+
+.app.dark .note-editor {
+  background-color: #3a2d20;
+  border: 2px solid #c2a27a;
+  color: #fdf9f5;
+}
+
+.app.dark .note-editor input,
+.app.dark .note-editor textarea {
+  background-color: #4a3a2a;
+  color: #fdf9f5;
+  border: 1px solid #c2a27a;
+}
+
+.app.dark .note-editor .save-btn {
+  background-color: #7b6a55;
+  color: #fff;
+}
+
+.app.dark .note-editor .save-btn:hover {
+  background-color: #a67c52;
+}
+
+.app.dark .ql-toolbar.ql-snow {
+    background-color: #3a2d20;
+    border-color: #c2a27a;
+}
+
+.app.dark .ql-toolbar.ql-snow .ql-stroke {
+    stroke: #fdf9f5;
+}
+
+.app.dark .ql-toolbar.ql-snow .ql-fill {
+    fill: #fdf9f5;
+}
+
+.app.dark .ql-toolbar.ql-snow .ql-picker-label {
+    color: #fdf9f5;
+}
+
+.app.dark .ql-container.ql-snow {
+    background-color: #3a2d20;
+    border-color: #c2a27a;
+    color: #fdf9f5;
+}
+
+.app.dark .ql-editor {
+    color: #fdf9f5;
+}
+
+.app.dark .ql-editor.ql-blank::before {
+    color: #cbbba5;   /* placeholder text, visible but muted */
+}
+
+.btn.restore {
+  background-color: #c2a27a;
+  color: #fff;
+}
+
+.btn.restore:hover {
+  background-color: #a67c52;
+}
+
+.btn.delete {
+  background-color: #b0524f;
+  color: #fff;
+}
+
+.btn.delete:hover {
+  background-color: #943f3c;
+}
+
+.btn.cancel {
+  background-color: #eee;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background-color: #ddd;
+}
+
+.app.dark button {
+  background-color: #7b6a55;
+  color: #fff;
+  border: none;
+}
