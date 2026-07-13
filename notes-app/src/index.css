@@ -240,3 +240,16 @@ html, body, #root {
 .app.dark .btn.cancel:hover {
   background-color: #4a3a2a;
 }
+
+.app.dark .mobile-dropdown {
+    background: #3a2d20;
+    border: 1px solid #c2a27a;
+}
+
+.app.dark .mobile-dropdown button {
+    color: #fdf9f5;
+}
+
+.app.dark .mobile-dropdown button:hover {
+    background-color: #4a3a2a;
+}

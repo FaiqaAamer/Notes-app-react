@@ -9,7 +9,7 @@ import './components/common/Modal.css'
 function App() {
 
   //States
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth <= 480);
   const [activeSection, setActiveSection] = useState("all"); 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -166,13 +166,45 @@ function App() {
     setStickyNotes(prev => prev.filter(note => note.id !== id))
   }
 
+  //Export/Import handlers
+  const exportData = () => {
+      const data = { notes, notebooks, stickyNotes };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "notenest-backup.json";
+      a.click();
+      URL.revokeObjectURL(url);
+  };
+  const importData = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+          try {
+              const data = JSON.parse(event.target.result);
+              setNotes(data.notes || []);
+              setNotebooks(data.notebooks || []);
+              setStickyNotes(data.stickyNotes || []);
+              alert("Notes imported successfully!");
+          } catch (err) {
+              alert("Invalid backup file. Please select a valid NoteNest export.");
+          }
+      };
+      reader.readAsText(file);
+
+      e.target.value = ""; // reset so selecting the same file again still triggers onChange
+  };
+
   //Render
   return (
     
     <>
     <div className={`app ${theme}`}>
       <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks} theme={theme} onDeleteNotebook={handleDeleteNotebook}/>
-      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery} onToggleTheme={toggleTheme} theme={theme}/>
+      <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery} onToggleTheme={toggleTheme} theme={theme} onExport={exportData} onImport={importData}/>
       <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
         {isEditorOpen || editingNote ? (
           <NoteEditor

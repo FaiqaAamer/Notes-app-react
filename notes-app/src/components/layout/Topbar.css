@@ -53,3 +53,54 @@
   background-color: #bba792;
   color: white;
 }
+
+/* Hide mobile menu on desktop by default */
+.mobile-menu-wrapper {
+    display: none;
+    position: relative;
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    /* color: inherit; */
+    padding: 6px;
+}
+
+.mobile-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+    z-index: 200;
+}
+
+.mobile-dropdown button {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.mobile-dropdown button:hover {
+    background-color: #f3ece2;
+}
+
+/* Below 600px: hide the full button row, show the dropdown trigger instead */
+@media (max-width: 750px) {
+    .desktop-actions {
+        display: none;
+    }
+    .mobile-menu-wrapper {
+        display: block;
+    }
+}
