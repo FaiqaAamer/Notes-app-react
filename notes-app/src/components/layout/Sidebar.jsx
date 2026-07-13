@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {
   NotebookPen,
-  Book,
+  Feather,
   FileText,
   Pin,
   Archive,
@@ -21,8 +21,6 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newNotebookName, setNewNotebookName] = useState("")
 
-  // const activeNotebook = null;
-
   const handleAddNotebook = () => {
     if(newNotebookName.trim() === "") return
     const newId = notebooks.length + 1
@@ -30,7 +28,7 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
       id : newId,
       name : newNotebookName,
       count : 0,
-      icon : <Book size={18}/>
+      icon : <NotebookPen size={18}/>
     }
     setNotebooks([...notebooks, newNotebook])
     setNewNotebookName("")
@@ -41,7 +39,7 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
     <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       {/* Top: App name + toggle arrow */}
       <div className="sidebar-header">
-        {!isCollapsed && <span className="app-name"><NotebookPen size={13} />&nbsp; Notes App</span>}
+        {!isCollapsed && <span className="app-name"> <Feather size={15} /> <span>NoteNest</span> </span>}
         <button className="toggle-btn" onClick={onToggle}>
           {isCollapsed ? <ArrowRight size={15} /> : <ArrowLeft size={15} />}
         </button>

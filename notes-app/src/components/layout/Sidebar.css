@@ -33,8 +33,11 @@
 }
 
 .app-name {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   white-space: nowrap;
 }
 
@@ -47,16 +50,16 @@
   flex-shrink: 0;
 }
 
-/* Nav + notebook list items */
+/* Nav + notebook list — shared rules, combined once */
 .sidebar nav ul,
-.notebook-list ul {
+.sidebar .notebook-list ul {
   list-style: none;
   padding: 0;
   margin: 0 0 1rem 0;
 }
 
 .sidebar nav ul li,
-.notebook-list ul li {
+.sidebar .notebook-list ul li {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -73,8 +76,15 @@
 }
 
 .sidebar nav ul li:hover,
-.notebook-list ul li:hover {
-  background-color: #e0e0e0;
+.sidebar .notebook-list ul li:hover {
+  background-color: #eae4dd;
+}
+
+.sidebar nav ul li.active,
+.sidebar .notebook-list ul li.active {
+  background-color: #ebdbc9;
+  color: #000;
+  font-weight: bold;
 }
 
 .icon {
@@ -93,13 +103,6 @@
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: #333;
-}
-
-.sidebar .notebook-list ul li.active {
-  background-color: #ebdbc9;   /* bright yellow highlight */
-  color: #000;                 /* text stays readable */
-  font-weight: bold;           /* optional emphasis */
-  border-radius: 4px;          /* smooth corners */
 }
 
 .new-notebook-btn {

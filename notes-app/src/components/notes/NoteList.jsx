@@ -23,6 +23,7 @@ function NoteList({notes, onEditNote, onPin, onArchive, onDelete, theme}){
         padding: "1rem",
         boxSizing : "border-box"
     }
+    
     return(<div style={styles} className='node-list'>
         {notes.map((note) => (<NoteCard key={note.id} note={note}
                                     isMenuOpen={openMenuId === note.id}

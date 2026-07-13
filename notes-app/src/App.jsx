@@ -8,6 +8,7 @@ import './components/common/Modal.css'
 
 function App() {
 
+  //States
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState("all"); 
   const [isEditorOpen, setIsEditorOpen] = useState(false);
@@ -22,7 +23,7 @@ function App() {
   const noteColors = ["#F4A99E", "#A8DDBE", "#A8D4EA", "#FBDCA0", "#b18fc2"];
   const lastColorRef = useRef(null);
 
-  //All useEffects in the App.jsx
+  //Effects
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth <= 480) {
@@ -46,7 +47,8 @@ function App() {
     setSearchQuery("");
   }, [activeSection]);
 
-  //All arrow functions in the App.jsx
+
+  //Note handlers
   const handleAddNote = (note) => {
         if (note.id) {
         setNotes((prev) =>
@@ -105,6 +107,8 @@ function App() {
   const toggleTheme = () => {
     setTheme(prev => (prev === "light" ? "dark" : "light"));
   };
+
+  //StickyNote handlers
   const addStickyNote = () => {
     let color;
     do {
@@ -131,7 +135,7 @@ function App() {
     setStickyNotes(prev => prev.filter(note => note.id !== id))
   }
 
-  //Main return part of the App.jsx
+  //Render
   return (
     
     <>

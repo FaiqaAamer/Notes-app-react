@@ -17,6 +17,7 @@
 .sticky-note textarea {
   width: 100%;
   flex: 1;
+  min-height: 120px;
   margin-top: 25px;
   border: none;
   background: transparent;
