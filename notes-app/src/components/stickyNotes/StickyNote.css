@@ -12,6 +12,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   cursor: move;
+  transition: left 0.15s ease-out, top 0.15s ease-out;
 }
 
 .sticky-note textarea {
@@ -42,4 +43,22 @@
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+@media (max-width: 600px) {
+  .sticky-note {
+    width: 140px;   /* smaller width for mobile */
+    min-height: 80px;
+    padding: 6px;
+  }
+
+  .sticky-note textarea {
+    height: 60px;
+    font-size: 12px; /* slightly smaller text */
+  }
+
+  .sticky-note button {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
 }
