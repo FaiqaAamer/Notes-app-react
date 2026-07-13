@@ -28,7 +28,7 @@ function StickyNote({ note, onUpdatePosition, onChange, onDelete }) {
     setIsDragging(false);
   };
 
-  // 🖱️ Mouse events
+  // Mouse events
   const handleMouseDown = (e) => {
     if (e.target.tagName === "TEXTAREA" || e.target.tagName === "BUTTON") return;
     startDrag(e.clientX, e.clientY);
@@ -44,7 +44,7 @@ function StickyNote({ note, onUpdatePosition, onChange, onDelete }) {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-  // 📱 Touch events
+  // Touch events
   const handleTouchStart = (e) => {
     if (e.target.tagName === "TEXTAREA" || e.target.tagName === "BUTTON") return;
     const touch = e.touches[0];
@@ -52,6 +52,7 @@ function StickyNote({ note, onUpdatePosition, onChange, onDelete }) {
   };
 
   const handleTouchMove = (e) => {
+    e.preventDefault(); // stop the page from scrolling while dragging
     const touch = e.touches[0];
     moveDrag(touch.clientX, touch.clientY);
   };
@@ -69,6 +70,7 @@ function StickyNote({ note, onUpdatePosition, onChange, onDelete }) {
         left: localPos.x,
         top: localPos.y,
         cursor: isDragging ? "grabbing" : "move",
+        touchAction: "none", // disables browser's default touch gestures on this element
       }}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
