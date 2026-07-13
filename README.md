@@ -96,25 +96,25 @@ src/
 
 # 🚀 Getting Started
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/notenest.git
 ```
 
-## 2. Navigate to the Project
+### 2. Navigate to the Project
 
 ```bash
 cd notenest
 ```
 
-## 3. Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-## 4. Start the Development Server
+### 4. Start the Development Server
 
 ```bash
 npm run dev
