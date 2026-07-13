@@ -46,7 +46,7 @@
 }
 
 .notebook-modal-content input {
-  width: 100%;
+  width: 95%;
   padding: 8px 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -58,6 +58,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-top: 15px;
 }
 
 .notebook-modal-actions button {

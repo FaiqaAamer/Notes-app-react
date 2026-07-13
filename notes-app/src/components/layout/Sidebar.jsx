@@ -17,7 +17,7 @@ import {
 import "./Sidebar.css";
 import Modal from "../common/Modal";
 
-function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, notebooks, setNotebooks}) {
+function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, notebooks, setNotebooks, onDeleteNotebook}) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [newNotebookName, setNewNotebookName] = useState("")
 
@@ -79,8 +79,23 @@ function Sidebar({ isCollapsed, onToggle, activeSection, setActiveSection, noteb
             <li className="empty">No notebooks yet</li>
           )}
           {notebooks.map((nb) => (
-            <li key={nb.id} className={activeSection === nb.id? "active" : ""} title={nb.name} onClick={() => setActiveSection(nb.id)}>
-              {isCollapsed ? <span className="icon">{nb.icon}</span> : <span>&nbsp;&nbsp;{nb.name}&nbsp; - &nbsp;{nb.count}</span>}
+            <li key={nb.id} className={activeSection === nb.id ? "active" : ""} title={nb.name} onClick={() => setActiveSection(nb.id)}>
+                {isCollapsed ? (
+                    <span className="icon">{nb.icon}</span>
+                ) : (
+                    <>
+                        <span>&nbsp;&nbsp;{nb.name}&nbsp; - &nbsp;{nb.count}</span>
+                        <button
+                            className="notebook-delete-btn"
+                            onClick={(e) => {
+                                e.stopPropagation();  // prevent triggering setActiveSection
+                                onDeleteNotebook(nb.id);
+                            }}
+                        >
+                            ✕
+                        </button>
+                    </>
+                )}
             </li>
           ))}
         </ul>

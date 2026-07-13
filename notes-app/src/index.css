@@ -64,13 +64,13 @@ html, body, #root {
   color: #fdf9f5;
 }
 
-.app.dark .sidebar button:not(.toggle-btn) {
+.app.dark .sidebar button:not(.toggle-btn):not(.notebook-delete-btn) {
   background-color: #3a2d20;
   color: #fdf9f5;
   border-color: #c2a27a;
 }
 
-.app.dark .sidebar button:not(.toggle-btn):hover {
+.app.dark .sidebar button:not(.toggle-btn):not(.notebook-delete-btn):hover {
   background-color: #c49357;
 }
 
@@ -94,6 +94,11 @@ html, body, #root {
 .app.dark .sidebar nav ul li:hover,
 .app.dark .sidebar .notebook-list ul li:hover {
   background-color: #483a2c;
+}
+
+.app.dark .sidebar .notebook-delete-btn {
+  background: none;
+  color: #fdf9f5;
 }
 
 /* Topbar */

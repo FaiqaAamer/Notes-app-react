@@ -50,7 +50,7 @@
   flex-shrink: 0;
 }
 
-/* Nav + notebook list — shared rules, combined once */
+/* Nav + notebook list — shared rules */
 .sidebar nav ul,
 .sidebar .notebook-list ul {
   list-style: none;
@@ -67,6 +67,7 @@
   cursor: pointer;
   border-radius: 4px;
   white-space: nowrap;
+  overflow: hidden; 
 }
 
 .sidebar.collapsed nav ul li,
@@ -118,4 +119,36 @@
 
 .new-notebook-btn:hover {
   background-color: #e4bb8c;
+}
+
+.modal input[type="text"] {
+  width: 100%;
+  text-align: right; 
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Notebook name truncation */
+.sidebar .notebook-list ul li span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Delete button */
+.notebook-delete-btn {
+  flex-shrink: 0;
+  margin-left: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #b0524f;
+  opacity: 0.6;
+}
+
+.notebook-delete-btn:hover {
+  opacity: 1;
+  color: #943f3c;
 }

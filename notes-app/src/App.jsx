@@ -22,6 +22,7 @@ function App() {
   const [stickyNotes, setStickyNotes] = useState([]);
   const noteColors = ["#F4A99E", "#A8DDBE", "#A8D4EA", "#FBDCA0", "#b18fc2"];
   const lastColorRef = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   //Effects
   useEffect(() => {
@@ -46,7 +47,28 @@ function App() {
   useEffect(() => {
     setSearchQuery("");
   }, [activeSection]);
+  
+  //Local Storage Effects
+  useEffect(() => {
+      const savedNotes = localStorage.getItem("notenest-notes");
+      const savedNotebooks = localStorage.getItem("notenest-notebooks");
+      const savedStickyNotes = localStorage.getItem("notenest-sticky");
 
+      if (savedNotes) setNotes(JSON.parse(savedNotes));
+      if (savedNotebooks) setNotebooks(JSON.parse(savedNotebooks));
+      if (savedStickyNotes) setStickyNotes(JSON.parse(savedStickyNotes));
+
+      setIsLoaded(true);
+  }, []);
+  useEffect(() => {
+      if (isLoaded) localStorage.setItem("notenest-notes", JSON.stringify(notes));
+  }, [notes, isLoaded]);
+  useEffect(() => {
+      if (isLoaded) localStorage.setItem("notenest-notebooks", JSON.stringify(notebooks));
+  }, [notebooks, isLoaded]);
+  useEffect(() => {
+      if (isLoaded) localStorage.setItem("notenest-sticky", JSON.stringify(stickyNotes));
+  }, [stickyNotes, isLoaded]);
 
   //Note handlers
   const handleAddNote = (note) => {
@@ -107,6 +129,15 @@ function App() {
   const toggleTheme = () => {
     setTheme(prev => (prev === "light" ? "dark" : "light"));
   };
+  const handleDeleteNotebook = (notebookId) => {
+    setNotebooks(prev => prev.filter(nb => nb.id !== notebookId));
+    setNotes(prev => prev.map(n => 
+        n.notebookId === notebookId ? { ...n, notebookId: null } : n
+    ));
+    if (activeSection === notebookId) {
+        setActiveSection("all");
+    }
+  };
 
   //StickyNote handlers
   const addStickyNote = () => {
@@ -140,7 +171,7 @@ function App() {
     
     <>
     <div className={`app ${theme}`}>
-      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks} theme={theme}/>
+      <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(prev => !prev)} activeSection={activeSection} setActiveSection={setActiveSection} notebooks={notebooks} setNotebooks={setNotebooks} theme={theme} onDeleteNotebook={handleDeleteNotebook}/>
       <Topbar isCollapsed={isCollapsed} onNewNote={() => setIsEditorOpen(true)} onSearch={setSearchQuery} onToggleTheme={toggleTheme} theme={theme}/>
       <main className={`main-content ${isCollapsed ? "collapsed" : ""}`}>
         {isEditorOpen || editingNote ? (
