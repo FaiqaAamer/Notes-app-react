@@ -131,9 +131,7 @@ function App() {
   };
   const handleDeleteNotebook = (notebookId) => {
     setNotebooks(prev => prev.filter(nb => nb.id !== notebookId));
-    setNotes(prev => prev.map(n => 
-        n.notebookId === notebookId ? { ...n, notebookId: null } : n
-    ));
+    setNotes(prev => prev.filter(n => n.notebookId !== notebookId));  // permanently remove notes in this notebook
     if (activeSection === notebookId) {
         setActiveSection("all");
     }
