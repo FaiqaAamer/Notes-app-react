@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Sun, Moon, Download, Upload } from "lucide-react";
 import "./Topbar.css";
 
-function Topbar({ onNewNote, onSearch, onToggleTheme, isCollapsed, onExport, onImport }) {
+function Topbar({ onNewNote, onSearch, onToggleTheme, isCollapsed, onExport, onImport, theme}) {
     const fileInputRef = useRef(null);
     const [menuOpen, setMenuOpen] = useState(false);
+    const isDark = theme === "dark";
 
     return (
         <header className={`topbar ${isCollapsed ? "collapsed" : ""}`}>
@@ -14,13 +15,25 @@ function Topbar({ onNewNote, onSearch, onToggleTheme, isCollapsed, onExport, onI
                 onChange={(e) => onSearch && onSearch(e.target.value)}
             />
             <div className="actions">
-                <button onClick={onNewNote}>+ New Note</button>
+                <button className="new-btn" onClick={onNewNote}>+ New Note</button>
 
                 {/* Desktop: show all buttons directly */}
                 <div className="desktop-actions">
-                    <button onClick={onToggleTheme}>Toggle Theme</button>
-                    <button onClick={onExport}>Export</button>
-                    <button onClick={() => fileInputRef.current.click()}>Import</button>
+                    <button
+                        className={`theme-toggle ${isDark ? "dark" : "light"}`}
+                        onClick={onToggleTheme}
+                        aria-label="Toggle theme"
+                    >
+                        <span className="theme-toggle-knob">
+                            {isDark ? <Moon size={16} /> : <Sun size={16} />}
+                        </span>
+                    </button>
+                    <button className="icon-btn" onClick={onExport} title="Export" aria-label="Export">
+                        <Download size={18} />
+                    </button>
+                    <button className="icon-btn" onClick={() => fileInputRef.current.click()} title="Import" aria-label="Import">
+                        <Upload size={18} />
+                    </button>
                 </div>
 
                 {/* Mobile: show a "more" menu instead */}
