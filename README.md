@@ -26,6 +26,15 @@ A modern, theme-based **React Notes App** designed for productivity and creativi
 - 🌗 **Light & Dark Theme**
   - Switch seamlessly between light and dark modes.
   - Consistent styling across the application.
+  - Pill like button has sun and moon icon on it
+
+- 📤 **Export & Import Notes**
+  - Export all notes as a .json file.
+  - Import notes back into the app for backup or migration.
+
+- 📱 **Responsive Mobile Menu**
+  - On desktop, all action buttons (theme toggle, export, import) are visible.
+  - On mobile, these three actions collapse into a “Three dots” dropdown menu for a cleaner UI.
 
 - 🧭 **Responsive Sidebar**
   - Collapsible navigation panel.
