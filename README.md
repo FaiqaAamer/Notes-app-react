@@ -165,6 +165,7 @@ http://localhost:5173
  
 - Light Mode
 - Dark Mode
+
 The application allows users to switch themes instantly while maintaining a consistent design throughout the interface.
  
 ---
@@ -182,6 +183,7 @@ The application allows users to switch themes instantly while maintaining a cons
 ## Support
  
 If you found this project helpful, consider giving it a star on GitHub.
+
 ---
 
 ## License
