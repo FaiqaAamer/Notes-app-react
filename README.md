@@ -13,33 +13,41 @@ NoteNest helps you organize your thoughts by creating notebooks, managing notes,
 **Notebook Management**
 - Create and delete notebooks.
 - Organize notes into separate categories.
+  
 **Notes Editor**
 - Create and edit notes.
 - Pin important notes.
 - Archive notes.
 - Move notes to trash.
+  
 **Sticky Notes**
 - Create colorful sticky notes.
 - Drag and reposition notes freely.
 - Random color generation for better visual organization.
+  
 **Light & Dark Theme**
 - Switch seamlessly between light and dark modes.
 - Consistent styling across the application.
 - Pill-style toggle button with sun and moon icons.
+  
 **Export & Import Notes**
 - Export all notes as a .json file.
 - Import notes back into the app for backup or migration.
+  
 **Responsive Mobile Menu**
 - On desktop, all action buttons (theme toggle, export, import) are visible.
 - On mobile, these actions collapse into a "three dots" dropdown menu for a cleaner UI.
+  
 **Responsive Sidebar**
 - Collapsible navigation panel.
 - Quick notebook access.
 - Modern icon-based interface.
+  
 **Reusable Modals**
 - Add notebook dialog.
 - Delete confirmation dialog.
 - Smooth user interactions.
+  
 **Modern UI**
 - Built with Lucide React Icons.
 - Clean and responsive layout.
