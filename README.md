@@ -1,7 +1,8 @@
 # 🪶 NoteNest
 
-A modern, theme-based **React Notes App** designed for productivity and creativity.
+🔗 **[Live Demo](https://notes-app-react-t18o.vercel.app/)**
 
+A modern, theme-based **React Notes App** designed for productivity and creativity.
 **NoteNest** helps you organize your thoughts by creating notebooks, managing notes, and using colorful sticky notes—all within a clean, responsive, and user-friendly interface.
 
 ---
